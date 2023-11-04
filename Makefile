@@ -6,20 +6,30 @@ CC=g++
 CCFLAGS=-std=c++11 -Wall -g3 -c
 
 # object files
-OBJS = tradecrypto.o report.o 
+OBJS = readvocab.o readlines.o countvocabstrings.o main.o 
 
 # Program name
-PROGRAM = tradecrypto
+PROGRAM = countvocabstrings
 
 # The program depends upon its object files
 $(PROGRAM) : $(OBJS)
-	$(CC) -o $(PROGRAM) $(OBJS)
+	$(CC) -pthread -o $(PROGRAM) $(OBJS)
 
-tradecrypto.o : tradecrypto.cpp tradecrypto.h
-	$(CC) $(CCFLAGS) tradecrypto.cpp
+main.o : main.cpp
+	$(CC) $(CCFLAGS) main.cpp
 	
-report.o: report.c report.h
-	$(CC) $(CCFLAGS) report.c
+# tree.o : tree.h
+# 	$(CC) $(CCFLAGS) tree.cpp
+
+readvocab.o : readvocab.cpp readvocab.h
+	$(CC) $(CCFLAGS) readvocab.cpp
+
+readlines.o: readlines.cpp readlines.h
+	$(CC) $(CCFLAGS) readlines.cpp
+    
+countvocabstrings.o: countvocabstrings.cpp countvocabstrings.h
+	$(CC) $(CCFLAGS) countvocabstrings.cpp
+
 # Once things work, people frequently delete their object files.
 # If you use "make clean", this will do it for you.
 # As we use gnuemacs which leaves auto save files termintating
