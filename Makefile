@@ -6,20 +6,20 @@ CC=g++
 CCFLAGS=-std=c++11 -Wall -g3 -c
 
 # object files
-OBJS = log_helpers.o demandpaging.o 
+OBJS = tradecrypto.o report.o 
 
 # Program name
-PROGRAM = demandpaging
+PROGRAM = tradecrypto
 
 # The program depends upon its object files
 $(PROGRAM) : $(OBJS)
 	$(CC) -o $(PROGRAM) $(OBJS)
 
-demandpaging.o : demandpaging.cpp demandpaging.h
-	$(CC) $(CCFLAGS) demandpaging.cpp
+tradecrypto.o : tradecrypto.cpp tradecrypto.h
+	$(CC) $(CCFLAGS) tradecrypto.cpp
 	
-log_helpers.o: log_helpers.c log_helpers.h
-	$(CC) $(CCFLAGS) log_helpers.c
+report.o: report.c report.h
+	$(CC) $(CCFLAGS) report.c
 # Once things work, people frequently delete their object files.
 # If you use "make clean", this will do it for you.
 # As we use gnuemacs which leaves auto save files termintating
