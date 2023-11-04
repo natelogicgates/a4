@@ -6,29 +6,26 @@ CC=g++
 CCFLAGS=-std=c++11 -Wall -g3 -c
 
 # object files
-OBJS = readvocab.o readlines.o countvocabstrings.o main.o 
+OBJS = producer.o consumer.o tradecrypto.o report.o
 
 # Program name
-PROGRAM = countvocabstrings
+PROGRAM = tradecrypto
 
 # The program depends upon its object files
 $(PROGRAM) : $(OBJS)
 	$(CC) -pthread -o $(PROGRAM) $(OBJS)
 
-main.o : main.cpp
-	$(CC) $(CCFLAGS) main.cpp
-	
-# tree.o : tree.h
-# 	$(CC) $(CCFLAGS) tree.cpp
+producer.o : producer.cpp producer.h
+	$(CC) $(CCFLAGS) producer.cpp
 
-readvocab.o : readvocab.cpp readvocab.h
-	$(CC) $(CCFLAGS) readvocab.cpp
+consumer.o: consumer.cpp consumer.h
+	$(CC) $(CCFLAGS) consumer.cpp
 
-readlines.o: readlines.cpp readlines.h
-	$(CC) $(CCFLAGS) readlines.cpp
+report.o : report.c report.h
+	$(CC) $(CCFLAGS) producer.c
     
-countvocabstrings.o: countvocabstrings.cpp countvocabstrings.h
-	$(CC) $(CCFLAGS) countvocabstrings.cpp
+tradecrypto.o: tradecrypto.cpp tradecrypto.h
+	$(CC) $(CCFLAGS) tradecrypto.cpp
 
 # Once things work, people frequently delete their object files.
 # If you use "make clean", this will do it for you.
