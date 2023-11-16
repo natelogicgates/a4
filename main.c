@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     int y = 0;
     int b = 0;
     int e = 0;
-
+    //optional args
     while ((opt = getopt(argc, argv, "n:x:y:b:e:")) != -1) {
         switch (opt) {
             case 'n':
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
     pthread_create(&consumers[1], NULL, consumer, args4);
 
     sem_wait(&sh->barrier);
-
+    //reporting output of producer and consumer
     report_production_history(sh->produced, sh->consumed);
     return 0;
 }
