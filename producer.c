@@ -5,7 +5,7 @@
 
 void *producer(void *arg) {
     struct thread_args *marg = (struct thread_args*)(arg);
-    RequestQueue *queue = marg->sh->queue;
+    RequestQueue *queue = marg->sh->queue; //creating new queue
 
     while (1) {
         usleep(marg->wait_ms);
@@ -17,7 +17,7 @@ void *producer(void *arg) {
             pthread_mutex_unlock(&marg->sh->producer_lock);
             break;
         }
-
+        //Accessing queue
         if(marg->mrType == Bitcoin && marg->sh->produced[marg->mrType] == 6) {
             pthread_mutex_unlock(&marg->sh->producer_lock);
             sem_wait(&marg->sh->sem_btc_cap);
@@ -26,7 +26,7 @@ void *producer(void *arg) {
 
         enqueue(queue, marg->mrType);
         marg->sh->produced[marg->mrType]++;
-
+        //Lock and unlock
         pthread_mutex_lock(&marg->sh->in_requestQueue_lock);
         marg->sh->inRequestQueue[marg->mrType]++;
         pthread_mutex_unlock(&marg->sh->in_requestQueue_lock);
