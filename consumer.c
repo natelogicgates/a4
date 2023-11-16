@@ -2,7 +2,7 @@
 
 void *consumer(void *arg) {
     struct thread_args *marg = (struct thread_args*)(arg);
-    RequestQueue *queue = marg->sh->queue; //creating new queue
+    RequestQueue *queue = marg->sh->queue;
 
     while (1) {
         pthread_mutex_lock(&marg->sh->consumer_lock);
@@ -19,17 +19,17 @@ void *consumer(void *arg) {
 
         if(requestType == Bitcoin && marg->sh->produced[requestType] == 6)
             sem_post(&marg->sh->sem_btc_cap);
-        //lock and unlock
+
         pthread_mutex_lock(&marg->sh->in_requestQueue_lock);
         marg->sh->inRequestQueue[requestType]--;
         pthread_mutex_unlock(&marg->sh->in_requestQueue_lock);
 
-        // report
-        report_request_removed(marg->mcType, requestType, marg->sh->consumed[marg->mcType], marg->sh->inRequestQueue);
 
         pthread_mutex_unlock(&marg->sh->consumer_lock);
 
-        usleep(marg->wait_ms);
+        usleep(marg->wait_ms * 1000);
+        // report
+        report_request_removed(marg->mcType, requestType, marg->sh->consumed[marg->mcType], marg->sh->inRequestQueue);
     }
 
     sem_post(&marg->sh->barrier);
