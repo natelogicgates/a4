@@ -38,7 +38,7 @@ RequestType dequeue(RequestQueue *queue) {
     pthread_mutex_unlock(&queue->mutex);
     return request;
 }
-
+//checking if queue is full
 int is_full(const RequestQueue *queue) {
     return (queue->count >= MAX_QUEUE_SIZE);
 }
@@ -47,7 +47,7 @@ void destroy_request_queue(RequestQueue *queue) {
     pthread_mutex_destroy(&queue->mutex);
     pthread_cond_destroy(&queue->not_empty);
 }
-
+//checking if queue is empty
 int is_empty(const RequestQueue *queue) {
     return !queue->count;
 }
